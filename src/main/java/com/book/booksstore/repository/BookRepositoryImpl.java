@@ -1,6 +1,5 @@
 package com.book.booksstore.repository;
 
-
 import com.book.booksstore.model.Book;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -11,7 +10,6 @@ import jakarta.persistence.PersistenceContext;
 
 @Repository
 public class BookRepositoryImpl implements BookRepository  {
-
     @PersistenceContext
     private EntityManager entityManager;
 
