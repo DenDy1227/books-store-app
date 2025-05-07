@@ -23,6 +23,7 @@ public class Book {
 
     @Column(nullable = false)
     public String title;
+
     @Column(nullable = false)
     public String author;
 

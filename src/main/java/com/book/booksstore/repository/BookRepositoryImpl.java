@@ -1,37 +1,54 @@
 package com.book.booksstore.repository;
 
 import com.book.booksstore.model.Book;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
-import jakarta.persistence.PersistenceContext;
 
 @Repository
 public class BookRepositoryImpl implements BookRepository  {
-    @PersistenceContext
-    private EntityManager entityManager;
+    private final SessionFactory sessionFactory;
+
+    @Autowired
+    public BookRepositoryImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     @Transactional
     public Book save(Book book) {
-        try {
-            if (book.getId() == null) {
-                entityManager.persist(book);
-                return book;
-            } else {
-                return entityManager.merge(book);
-            }
-        } catch (Exception e) {
-            // You can wrap it in a custom exception or just rethrow
-            throw new DataAccessException("Failed to save book: " + book, e) {};
-        }
+        Session session = null;
+        Transaction transaction = null;
 
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            session.persist(book);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw new DataAccessException("Failed to save book: " + book, e) {};
+        }finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return book;
     }
 
     @Override
     public List<Book> findAll() {
-        return entityManager.createQuery("SELECT b FROM Book b", Book.class).getResultList();
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("FROM Book", Book.class).getResultList();
+        } catch (Exception e) {
+            throw new RuntimeException("Can't get all books", e);
+        }
     }
 }
