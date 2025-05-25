@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
+    /**
+     * The Book service repository.
+     */
     private final BookRepository bookRepository;
 
     /**

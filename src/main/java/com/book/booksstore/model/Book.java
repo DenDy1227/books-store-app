@@ -43,10 +43,10 @@ public class Book {
     /**
      * Sets title.
      *
-     * @param title the title
+     * @param bookTitle the title
      */
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(final String bookTitle) {
+        this.title = bookTitle;
     }
 
     /**
@@ -67,10 +67,10 @@ public class Book {
     /**
      * Sets author.
      *
-     * @param author the author
+     * @param authorOfBook the author
      */
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthor(final String authorOfBook) {
+        this.author = authorOfBook;
     }
 
     /**
@@ -91,10 +91,10 @@ public class Book {
     /**
      * Sets isbn.
      *
-     * @param isbn the isbn
+     * @param isbnNumber the isbn
      */
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setIsbn(final String isbnNumber) {
+        this.isbn = isbnNumber;
     }
 
     /**
@@ -115,10 +115,10 @@ public class Book {
     /**
      * Sets price.
      *
-     * @param price the price
+     * @param bookPrice the price
      */
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setPrice(final BigDecimal bookPrice) {
+        this.price = bookPrice;
     }
 
     /**
@@ -138,10 +138,10 @@ public class Book {
     /**
      * Sets description.
      *
-     * @param description the description
+     * @param bookDescription the description
      */
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(final String bookDescription) {
+        this.description = bookDescription;
     }
 
     /**
@@ -161,9 +161,9 @@ public class Book {
     /**
      * Sets cover image.
      *
-     * @param coverImage the cover image
+     * @param bookCoverImage the cover image
      */
-    public void setCoverImage(String coverImage) {
-        this.coverImage = coverImage;
+    public void setCoverImage(final String bookCoverImage) {
+        this.coverImage = bookCoverImage;
     }
 }
