@@ -31,10 +31,20 @@ public class Book {
     @Column(nullable = false)
     private String title;
 
+    /**
+     * Gets title.
+     *
+     * @return the title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Sets title.
+     *
+     * @param title the title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
@@ -45,10 +55,20 @@ public class Book {
     @Column(nullable = false)
     private String author;
 
+    /**
+     * Gets author.
+     *
+     * @return the author
+     */
     public String getAuthor() {
         return author;
     }
 
+    /**
+     * Sets author.
+     *
+     * @param author the author
+     */
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -59,10 +79,20 @@ public class Book {
     @Column(name = "isbn")
     private String isbn;
 
+    /**
+     * Gets isbn.
+     *
+     * @return the isbn
+     */
     public String getIsbn() {
         return isbn;
     }
 
+    /**
+     * Sets isbn.
+     *
+     * @param isbn the isbn
+     */
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
@@ -73,10 +103,20 @@ public class Book {
     @Column(nullable = false)
     private BigDecimal price;
 
+    /**
+     * Gets price.
+     *
+     * @return the price
+     */
     public BigDecimal getPrice() {
         return price;
     }
 
+    /**
+     * Sets price.
+     *
+     * @param price the price
+     */
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
@@ -86,10 +126,20 @@ public class Book {
      */
     private String description;
 
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets description.
+     *
+     * @param description the description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
@@ -99,10 +149,20 @@ public class Book {
      */
     private String coverImage;
 
+    /**
+     * Gets cover image.
+     *
+     * @return the cover image
+     */
     public String getCoverImage() {
         return coverImage;
     }
 
+    /**
+     * Sets cover image.
+     *
+     * @param coverImage the cover image
+     */
     public void setCoverImage(String coverImage) {
         this.coverImage = coverImage;
     }
