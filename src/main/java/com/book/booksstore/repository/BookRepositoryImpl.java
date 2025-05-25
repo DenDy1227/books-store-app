@@ -23,11 +23,11 @@ public class BookRepositoryImpl implements BookRepository {
     /**
      * Instantiates a new Book repository.
      *
-     * @param sessionFactory the session factory
+     * @param factory the session factory
      */
     @Autowired
-    public BookRepositoryImpl(final SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public BookRepositoryImpl(final SessionFactory factory) {
+        this.sessionFactory = factory;
     }
 
     /**
