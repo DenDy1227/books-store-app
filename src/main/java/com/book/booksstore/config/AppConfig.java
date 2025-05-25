@@ -18,16 +18,19 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 @PropertySource("classpath:application.properties")
 @ComponentScan(basePackages = "com.book.booksstore")
 public class AppConfig {
+    /**
+     * The app environment.
+     */
     private final Environment environment;
 
     /**
      * Instantiates a new App config.
      *
-     * @param environment the environment
+     * @param env the environment
      */
     @Autowired
-    public AppConfig(Environment environment) {
-        this.environment = environment;
+    public AppConfig(final Environment env) {
+        this.environment = env;
     }
 
     /**

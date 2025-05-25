@@ -14,11 +14,17 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
 
+    /**
+     * Save book.
+     */
     @Override
-    public Book save(Book book) {
+    public Book save(final Book book) {
         return bookRepository.save(book);
     }
 
+    /**
+     * Get all books .
+     */
     @Override
     public List<Book> findAll() {
         return bookRepository.findAll();
