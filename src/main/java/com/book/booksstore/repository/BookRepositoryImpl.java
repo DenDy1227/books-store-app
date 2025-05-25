@@ -10,10 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+/**
+ * The type Book repository.
+ */
 @Repository
-public class BookRepositoryImpl implements BookRepository  {
+public class BookRepositoryImpl implements BookRepository {
     private final SessionFactory sessionFactory;
 
+    /**
+     * Instantiates a new Book repository.
+     *
+     * @param sessionFactory the session factory
+     */
     @Autowired
     public BookRepositoryImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -34,8 +42,9 @@ public class BookRepositoryImpl implements BookRepository  {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataAccessException("Failed to save book: " + book, e) {};
-        }finally {
+            throw new DataAccessException("Failed to save book: " + book, e) {
+            };
+        } finally {
             if (session != null) {
                 session.close();
             }

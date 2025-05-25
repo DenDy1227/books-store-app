@@ -12,6 +12,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
 
+/**
+ * The type Book.
+ */
 @Entity
 @Table(name = "books")
 @Setter
@@ -21,17 +24,35 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * The Title.
+     */
     @Column(nullable = false)
     public String title;
 
+    /**
+     * The Author.
+     */
     @Column(nullable = false)
     public String author;
 
+    /**
+     * The Isbn.
+     */
     @Column(name = "isbn")
     public String isbn;
 
+    /**
+     * The Price.
+     */
     @Column(nullable = false)
     public BigDecimal price;
+    /**
+     * The Description.
+     */
     public String description;
+    /**
+     * The Cover image.
+     */
     public String coverImage;
 }

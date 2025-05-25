@@ -11,17 +11,30 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
+/**
+ * The type App config.
+ */
 @Configuration
 @PropertySource("classpath:application.properties")
 @ComponentScan(basePackages = "com.book.booksstore")
 public class AppConfig {
     private final Environment environment;
 
+    /**
+     * Instantiates a new App config.
+     *
+     * @param environment the environment
+     */
     @Autowired
     public AppConfig(Environment environment) {
         this.environment = environment;
     }
 
+    /**
+     * Gets data source.
+     *
+     * @return the data source
+     */
     @Bean
     public DataSource getDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
@@ -32,15 +45,29 @@ public class AppConfig {
         return dataSource;
     }
 
+    /**
+     * Gets session factory.
+     *
+     * @return the session factory
+     */
     @Bean
     public LocalSessionFactoryBean getSessionFactory() {
-        LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
+        LocalSessionFactoryBean localSessionFactoryBean =
+                new LocalSessionFactoryBean();
         localSessionFactoryBean.setDataSource(getDataSource());
 
         Properties properties = new Properties();
-        properties.put("show_sql", environment.getProperty("hibernate.show_sql"));
-        properties.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
-        properties.put("hibernate.dialect", environment.getProperty("hibernate.dialect"));
+        properties.put("show_sql",
+                environment.getProperty("hibernate.show_sql")
+        );
+        properties.put(
+                "hibernate.hbm2ddl.auto",
+                environment.getProperty("hibernate.hbm2ddl.auto")
+        );
+        properties.put(
+                "hibernate.dialect",
+                environment.getProperty("hibernate.dialect")
+        );
         localSessionFactoryBean.setHibernateProperties(properties);
 
         localSessionFactoryBean.setPackagesToScan("com.book.booksstore.config");

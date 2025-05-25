@@ -1,0 +1,5 @@
+com.book.booksstore
+com.book.booksstore.config
+com.book.booksstore.model
+com.book.booksstore.repository
+com.book.booksstore.service

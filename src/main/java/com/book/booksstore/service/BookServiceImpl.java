@@ -6,6 +6,9 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Book service.
+ */
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
