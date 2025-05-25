@@ -15,6 +15,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class BookRepositoryImpl implements BookRepository {
+    /**
+     * The Hibernate SessionFactory used to open and manage database sessions.
+     */
     private final SessionFactory sessionFactory;
 
     /**
@@ -23,13 +26,18 @@ public class BookRepositoryImpl implements BookRepository {
      * @param sessionFactory the session factory
      */
     @Autowired
-    public BookRepositoryImpl(SessionFactory sessionFactory) {
+    public BookRepositoryImpl(final SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
+    /**
+     * Save a new Book repository.
+     *
+     * @param book the book to save
+     */
     @Override
     @Transactional
-    public Book save(Book book) {
+    public Book save(final Book book) {
         Session session = null;
         Transaction transaction = null;
 
@@ -52,6 +60,10 @@ public class BookRepositoryImpl implements BookRepository {
         return book;
     }
 
+    /**
+     * Return all books.
+
+     */
     @Override
     public List<Book> findAll() {
         try (Session session = sessionFactory.openSession()) {
