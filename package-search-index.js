@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.book.booksstore"},{"l":"com.book.booksstore.config"},{"l":"com.book.booksstore.model"},{"l":"com.book.booksstore.repository"},{"l":"com.book.booksstore.service"}];updateSearchResults();
