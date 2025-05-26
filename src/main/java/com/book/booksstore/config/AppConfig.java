@@ -41,10 +41,18 @@ public class AppConfig {
     @Bean
     public DataSource getDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(environment.getProperty("db.driver"));
-        dataSource.setUrl(environment.getProperty("db.url"));
-        dataSource.setUsername(environment.getProperty("db.username"));
-        dataSource.setPassword(environment.getProperty("db.password"));
+        dataSource.setDriverClassName(environment.getProperty(
+                "spring.datasource.driverClassName")
+        );
+        dataSource.setUrl(environment.getProperty(
+                "spring.datasource.url")
+        );
+        dataSource.setUsername(environment.getProperty(
+                "spring.datasource.username")
+        );
+        dataSource.setPassword(environment.getProperty(
+                "spring.datasource.password")
+        );
         return dataSource;
     }
 
@@ -54,26 +62,24 @@ public class AppConfig {
      * @return the session factory
      */
     @Bean
-    public LocalSessionFactoryBean getSessionFactory() {
+    public LocalSessionFactoryBean entityManagerFactory() {
         LocalSessionFactoryBean localSessionFactoryBean =
                 new LocalSessionFactoryBean();
         localSessionFactoryBean.setDataSource(getDataSource());
 
         Properties properties = new Properties();
-        properties.put("show_sql",
-                environment.getProperty("hibernate.show_sql")
+        properties.put(
+                "spring.jpa.hibernate.ddl-auto",
+                environment.getProperty("spring.jpa.hibernate.ddl-auto")
         );
         properties.put(
-                "hibernate.hbm2ddl.auto",
-                environment.getProperty("hibernate.hbm2ddl.auto")
-        );
-        properties.put(
-                "hibernate.dialect",
-                environment.getProperty("hibernate.dialect")
+                "spring.jpa.properties.hibernate.dialect",
+                environment.getProperty(
+                        "spring.jpa.properties.hibernate.dialect")
         );
         localSessionFactoryBean.setHibernateProperties(properties);
 
-        localSessionFactoryBean.setPackagesToScan("com.book.booksstore.config");
+        localSessionFactoryBean.setPackagesToScan("com.book.booksstore.model");
         return localSessionFactoryBean;
     }
 }

@@ -32,46 +32,10 @@ public class Book {
     private String title;
 
     /**
-     * Gets title.
-     *
-     * @return the title
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * Sets title.
-     *
-     * @param bookTitle the title
-     */
-    public void setTitle(final String bookTitle) {
-        this.title = bookTitle;
-    }
-
-    /**
      * The Author.
      */
     @Column(nullable = false)
     private String author;
-
-    /**
-     * Gets author.
-     *
-     * @return the author
-     */
-    public String getAuthor() {
-        return author;
-    }
-
-    /**
-     * Sets author.
-     *
-     * @param authorOfBook the author
-     */
-    public void setAuthor(final String authorOfBook) {
-        this.author = authorOfBook;
-    }
 
     /**
      * The Isbn.
@@ -80,69 +44,15 @@ public class Book {
     private String isbn;
 
     /**
-     * Gets isbn.
-     *
-     * @return the isbn
-     */
-    public String getIsbn() {
-        return isbn;
-    }
-
-    /**
-     * Sets isbn.
-     *
-     * @param isbnNumber the isbn
-     */
-    public void setIsbn(final String isbnNumber) {
-        this.isbn = isbnNumber;
-    }
-
-    /**
      * The Price.
      */
     @Column(nullable = false)
     private BigDecimal price;
 
     /**
-     * Gets price.
-     *
-     * @return the price
-     */
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    /**
-     * Sets price.
-     *
-     * @param bookPrice the price
-     */
-    public void setPrice(final BigDecimal bookPrice) {
-        this.price = bookPrice;
-    }
-
-    /**
      * The Description.
      */
     private String description;
-
-    /**
-     * Gets description.
-     *
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Sets description.
-     *
-     * @param bookDescription the description
-     */
-    public void setDescription(final String bookDescription) {
-        this.description = bookDescription;
-    }
 
     /**
      * The Cover image.
@@ -166,4 +76,95 @@ public class Book {
     public void setCoverImage(final String bookCoverImage) {
         this.coverImage = bookCoverImage;
     }
+
+    /**
+     * Gets title.
+     *
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Sets title.
+     *
+     * @param bookTitle the title
+     */
+    public void setTitle(final String bookTitle) {
+        this.title = bookTitle;
+    }
+
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Sets description.
+     *
+     * @param bookDescription the description
+     */
+    public void setDescription(final String bookDescription) {
+        this.description = bookDescription;
+    }
+
+    /**
+     * Gets price.
+     *
+     * @return the price
+     */
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    /**
+     * Sets price.
+     *
+     * @param bookPrice the price
+     */
+    public void setPrice(final BigDecimal bookPrice) {
+        this.price = bookPrice;
+    }
+
+    /**
+     * Gets isbn.
+     *
+     * @return the isbn
+     */
+    public String getIsbn() {
+        return isbn;
+    }
+
+    /**
+     * Sets isbn.
+     *
+     * @param isbnNumber the isbn
+     */
+    public void setIsbn(final String isbnNumber) {
+        this.isbn = isbnNumber;
+    }
+
+    /**
+     * Gets author.
+     *
+     * @return the author
+     */
+    public String getAuthor() {
+        return author;
+    }
+
+    /**
+     * Sets author.
+     *
+     * @param authorOfBook the author
+     */
+    public void setAuthor(final String authorOfBook) {
+        this.author = authorOfBook;
+    }
 }
+
