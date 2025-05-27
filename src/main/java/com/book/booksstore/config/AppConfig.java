@@ -11,33 +11,17 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
-/**
- * The type App config.
- */
 @Configuration
 @PropertySource("classpath:application.properties")
 @ComponentScan(basePackages = "com.book.booksstore")
 public class AppConfig {
-    /**
-     * The app environment.
-     */
     private final Environment environment;
 
-    /**
-     * Instantiates a new App config.
-     *
-     * @param env the environment
-     */
     @Autowired
     public AppConfig(final Environment env) {
         this.environment = env;
     }
 
-    /**
-     * Gets data source.
-     *
-     * @return the data source
-     */
     @Bean
     public DataSource getDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
@@ -56,11 +40,6 @@ public class AppConfig {
         return dataSource;
     }
 
-    /**
-     * Gets session factory.
-     *
-     * @return the session factory
-     */
     @Bean
     public LocalSessionFactoryBean entityManagerFactory() {
         LocalSessionFactoryBean localSessionFactoryBean =
