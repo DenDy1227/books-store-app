@@ -18,12 +18,12 @@ public class BooksStoreApplication {
     public CommandLineRunner run(BookService bookService) {
         return args -> {
             bookService.findAll();
-            Book book1 = new Book();
-            book1.setTitle("Book 1");
-            book1.setAuthor("Author 1");
-            book1.setIsbn("ISBN 1");
-            book1.setPrice(BigDecimal.valueOf(100));
-            bookService.save(book1);
+            Book book = new Book();
+            book.setTitle("Book 1");
+            book.setAuthor("Author 1");
+            book.setIsbn("ISBN 1");
+            book.setPrice(BigDecimal.valueOf(100));
+            bookService.save(book);
             System.out.println("Alll books" + bookService.findAll());
         };
     }
