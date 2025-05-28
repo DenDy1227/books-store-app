@@ -18,9 +18,9 @@ public class BooksStoreApplication {
     }
 
     @Bean
-    public CommandLineRunner run(BookService userService) {
+    public CommandLineRunner run() {
         return args -> {
-            userService.findAll();
+            bookService.findAll();
         };
     }
 }
