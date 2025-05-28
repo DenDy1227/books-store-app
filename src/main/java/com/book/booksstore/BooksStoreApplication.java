@@ -1,6 +1,8 @@
 package com.book.booksstore;
 
+import com.book.booksstore.model.Book;
 import com.book.booksstore.service.BookService;
+import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,9 +20,16 @@ public class BooksStoreApplication {
     }
 
     @Bean
-    public CommandLineRunner run() {
+    public CommandLineRunner run(BookService bookService) {
         return args -> {
             bookService.findAll();
+            Book book1 = new Book();
+            book1.setTitle("Book 1");
+            book1.setAuthor("Author 1");
+            book1.setIsbn("ISBN 1");
+            book1.setPrice(BigDecimal.valueOf(100));
+            bookService.save(book1);
+            System.out.println("Alll books" + bookService.findAll());
         };
     }
 }
