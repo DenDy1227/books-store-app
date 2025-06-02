@@ -7,7 +7,6 @@ import com.book.booksstore.mappers.BookMapper;
 import com.book.booksstore.model.Book;
 import com.book.booksstore.repository.BookRepository;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
