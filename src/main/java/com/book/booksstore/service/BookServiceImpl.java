@@ -43,13 +43,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean deleteBook(Long id) {
-        try {
-            bookRepository.deleteById(id);
-            return true;
-        } catch (Exception e) {
+        if (!bookRepository.existsById(id)) {
             throw new EntityNotFoundException("Book not found with ID: " + id);
         }
-
+        bookRepository.deleteById(id);
+        return true;
     }
 
 }
