@@ -29,7 +29,7 @@ public class BookController {
     }
 
     @GetMapping(("/{id}"))
-    public BookDto getBookById(@PathVariable Long id) {
+    public BookDto getBookById(@PathVariable @Valid Long id) {
         return bookService.findById(id);
     }
 
@@ -44,13 +44,16 @@ public class BookController {
     }
 
     @PutMapping({"/{id}"})
-    public BookDto updateBook(@PathVariable Long id, BookDto updatedBook) {
+    public BookDto updateBook(
+            @PathVariable
+            @Valid Long id,
+            @Valid BookDto updatedBook) {
         return bookService.update(id, updatedBook);
     }
 
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean deleteBook(@PathVariable Long id) {
+    public boolean deleteBook(@PathVariable @Valid Long id) {
         return bookService.deleteBook(id);
     }
 }
