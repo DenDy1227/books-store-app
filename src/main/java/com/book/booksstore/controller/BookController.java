@@ -5,6 +5,7 @@ import com.book.booksstore.dto.CreateBookRequestDto;
 import com.book.booksstore.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,25 +33,32 @@ public class BookController {
     }
 
     @GetMapping(("/{id}"))
-    public BookDto getBookById(@PathVariable Long id) {
+    public BookDto getBookById(@PathVariable @Valid Long id) {
         return bookService.findById(id);
     }
 
     @Operation(summary = "Book creation.", description = "Adding new book.")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookDto createBook(@RequestBody CreateBookRequestDto bookDto) {
+    public BookDto createBook(
+            @RequestBody
+            @Valid
+            CreateBookRequestDto bookDto
+    ) {
         return bookService.save(bookDto);
     }
 
     @PutMapping({"/{id}"})
-    public BookDto updateBook(@PathVariable Long id, BookDto updatedBook) {
+    public BookDto updateBook(
+            @PathVariable
+            @Valid Long id,
+            @Valid BookDto updatedBook) {
         return bookService.update(id, updatedBook);
     }
 
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean deleteBook(@PathVariable Long id) {
+    public boolean deleteBook(@PathVariable @Valid Long id) {
         return bookService.deleteBook(id);
     }
 }
