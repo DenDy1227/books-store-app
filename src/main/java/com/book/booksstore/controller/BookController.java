@@ -3,6 +3,7 @@ package com.book.booksstore.controller;
 import com.book.booksstore.dto.BookDto;
 import com.book.booksstore.dto.CreateBookRequestDto;
 import com.book.booksstore.service.BookService;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,24 +29,31 @@ public class BookController {
     }
 
     @GetMapping(("/{id}"))
-    public BookDto getBookById(@PathVariable Long id) {
+    public BookDto getBookById(@PathVariable @Valid Long id) {
         return bookService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookDto createBook(@RequestBody CreateBookRequestDto bookDto) {
+    public BookDto createBook(
+            @RequestBody
+            @Valid
+            CreateBookRequestDto bookDto
+    ) {
         return bookService.save(bookDto);
     }
 
     @PutMapping({"/{id}"})
-    public BookDto updateBook(@PathVariable Long id, BookDto updatedBook) {
+    public BookDto updateBook(
+            @PathVariable
+            @Valid Long id,
+            @Valid BookDto updatedBook) {
         return bookService.update(id, updatedBook);
     }
 
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean deleteBook(@PathVariable Long id) {
+    public boolean deleteBook(@PathVariable @Valid Long id) {
         return bookService.deleteBook(id);
     }
 }
