@@ -18,7 +18,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserDto register(CreateUserRequestDto request) {
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+        if (userRepository.existsByEmail(request.getEmail()).isPresent()) {
             throw new RegistrationException(
                     "User already exists. EMAIL: "
                             + request.getEmail());
