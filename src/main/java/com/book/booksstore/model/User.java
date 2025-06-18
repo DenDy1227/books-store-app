@@ -35,8 +35,10 @@ public class User {
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
-    private boolean isDeleted;
-
+    @Column(name = "shipping_address")
     private String shippingAddress;
+
+    @Column(name = "is_deleted", nullable = false,
+            columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean isDeleted = false;
 }

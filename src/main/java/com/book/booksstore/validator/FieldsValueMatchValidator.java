@@ -20,8 +20,10 @@ public class FieldsValueMatchValidator implements
     @Override
     public boolean isValid(CreateUserRequestDto dto,
                            ConstraintValidatorContext context) {
-        Object field = new BeanWrapperImpl(dto).getPropertyValue(this.field);
-        Object fieldMatch = new BeanWrapperImpl(dto).getPropertyValue(this.fieldMatch);
+        Object field = new BeanWrapperImpl(dto)
+                .getPropertyValue(this.field);
+        Object fieldMatch = new BeanWrapperImpl(dto)
+                .getPropertyValue(this.fieldMatch);
         return Objects.equals(field, fieldMatch);
     }
 }
