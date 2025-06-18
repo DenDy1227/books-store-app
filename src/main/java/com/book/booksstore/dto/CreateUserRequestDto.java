@@ -1,13 +1,13 @@
 package com.book.booksstore.dto;
 
-import com.book.booksstore.validator.PasswordMatch;
+import com.book.booksstore.validator.FieldsValueMatch;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-@PasswordMatch
+@FieldsValueMatch
 public class CreateUserRequestDto {
     @Email
     @NotBlank

@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 2-insert-sample-users
-      author: mateacademy
+      author: denDy
       changes:
         - insert:
             tableName: users

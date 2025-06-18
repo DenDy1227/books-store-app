@@ -24,7 +24,7 @@ public class AuthServiceImpl implements AuthService {
                             + request.getEmail());
         }
         User user = userMapper.toUserModel(request);
-        User saved = userRepository.save(user);
-        return userMapper.toUserDto(saved);
+        userRepository.save(user);
+        return userMapper.toUserDto(user);
     }
 }
