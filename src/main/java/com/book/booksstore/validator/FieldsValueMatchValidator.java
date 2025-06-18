@@ -3,6 +3,8 @@ package com.book.booksstore.validator;
 import com.book.booksstore.dto.CreateUserRequestDto;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import java.util.Objects;
+import org.springframework.beans.BeanWrapperImpl;
 
 public class FieldsValueMatchValidator implements
         ConstraintValidator<FieldsValueMatch, CreateUserRequestDto> {
@@ -18,18 +20,8 @@ public class FieldsValueMatchValidator implements
     @Override
     public boolean isValid(CreateUserRequestDto dto,
                            ConstraintValidatorContext context) {
-        if (dto.getPassword() == null || dto.getRepeatPassword() == null) {
-            return false;
-        }
-
-        boolean matches = dto.getPassword().equals(dto.getRepeatPassword());
-        if (!matches) {
-            context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate(
-                            context.getDefaultConstraintMessageTemplate())
-                    .addPropertyNode("repeatPassword")
-                    .addConstraintViolation();
-        }
-        return matches;
+        Object field = new BeanWrapperImpl(dto).getPropertyValue(this.field);
+        Object fieldMatch = new BeanWrapperImpl(dto).getPropertyValue(this.fieldMatch);
+        return Objects.equals(field, fieldMatch);
     }
 }
