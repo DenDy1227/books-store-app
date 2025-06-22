@@ -41,7 +41,7 @@ public class AuthController {
     @PostMapping("/login")
     public UserLoginResponseDto login(
             @RequestBody
-            UserLoginRequestDto request)
+            @Valid UserLoginRequestDto request)
             throws RegistrationException {
         return authenticationService.authenticate(request);
     }
