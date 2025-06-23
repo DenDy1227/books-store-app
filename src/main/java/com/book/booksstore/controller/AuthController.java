@@ -2,7 +2,10 @@ package com.book.booksstore.controller;
 
 import com.book.booksstore.dto.CreateUserRequestDto;
 import com.book.booksstore.dto.UserDto;
+import com.book.booksstore.dto.UserLoginRequestDto;
+import com.book.booksstore.dto.UserLoginResponseDto;
 import com.book.booksstore.exception.RegistrationException;
+import com.book.booksstore.security.AuthenticationService;
 import com.book.booksstore.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
     private final AuthService authService;
+    private final AuthenticationService authenticationService;
 
     @Operation(summary = "User registration.", description = "Adding new user.")
     @PostMapping("/registration")
@@ -31,5 +35,14 @@ public class AuthController {
             throws RegistrationException {
         UserDto user = authService.register(request);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "User login.", description = "Login user.")
+    @PostMapping("/login")
+    public UserLoginResponseDto login(
+            @RequestBody
+            @Valid UserLoginRequestDto request)
+            throws RegistrationException {
+        return authenticationService.authenticate(request);
     }
 }
