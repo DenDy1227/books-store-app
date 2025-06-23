@@ -1,12 +1,9 @@
 package com.book.booksstore.dto;
 
-import com.book.booksstore.model.Category;
 import java.math.BigDecimal;
 import java.util.Set;
-import lombok.Data;
 
-@Data
-public class BookDto {
+public class BookDtoWithoutCategoryIds {
 
     private Long id;
 
@@ -22,5 +19,5 @@ public class BookDto {
 
     private String coverImage;
 
-    private Set<Category> categoriesIds;
+    private Set<CategoryDto> categories;
 }

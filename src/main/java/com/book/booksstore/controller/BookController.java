@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Book store", description = "Endpoints for managing books.")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/api/books")
 public class BookController {
     private final BookService bookService;
 
@@ -36,6 +36,18 @@ public class BookController {
     @GetMapping(("/{id}"))
     public BookDto getBookById(@PathVariable @Valid Long id) {
         return bookService.findById(id);
+    }
+
+    @Operation(
+            summary = "Get books by category.",
+            description = "Return pageable list ofbooks by category.")
+    @GetMapping(("/category/{categoryId}/books"))
+    public Page<BookDto> getBookByCategoryId(
+            @PathVariable
+            @Valid
+            Long categoryId,
+            Pageable pageable) {
+        return bookService.findByCategory(categoryId, pageable);
     }
 
     @Operation(summary = "Book creation.", description = "Adding new book.")
