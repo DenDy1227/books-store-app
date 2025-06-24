@@ -38,18 +38,6 @@ public class BookController {
         return bookService.findById(id);
     }
 
-    @Operation(
-            summary = "Get books by category.",
-            description = "Return pageable list ofbooks by category.")
-    @GetMapping(("/category/{categoryId}/books"))
-    public Page<BookDto> getBookByCategoryId(
-            @PathVariable
-            @Valid
-            Long categoryId,
-            Pageable pageable) {
-        return bookService.findByCategory(categoryId, pageable);
-    }
-
     @Operation(summary = "Book creation.", description = "Adding new book.")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

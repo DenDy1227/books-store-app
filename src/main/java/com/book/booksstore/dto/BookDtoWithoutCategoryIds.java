@@ -1,7 +1,6 @@
 package com.book.booksstore.dto;
 
 import java.math.BigDecimal;
-import java.util.Set;
 
 public class BookDtoWithoutCategoryIds {
 
@@ -18,6 +17,4 @@ public class BookDtoWithoutCategoryIds {
     private String description;
 
     private String coverImage;
-
-    private Set<CategoryDto> categories;
 }

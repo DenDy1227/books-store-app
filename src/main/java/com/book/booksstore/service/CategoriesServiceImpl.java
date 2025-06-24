@@ -1,6 +1,7 @@
 package com.book.booksstore.service;
 
 import com.book.booksstore.dto.CategoryDto;
+import com.book.booksstore.dto.CategoryResponseDto;
 import com.book.booksstore.mappers.CategoryMapper;
 import com.book.booksstore.model.Category;
 import com.book.booksstore.repository.CategoryRepository;
@@ -22,21 +23,22 @@ public class CategoriesServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto getById(Long id) {
-        return categoryMapper.toDto(categoryRepository.getReferenceById(id));
+    public CategoryResponseDto getById(Long id) {
+        return categoryMapper.toResponseDto(
+                categoryRepository.getReferenceById(id));
     }
 
     @Override
-    public CategoryDto save(CategoryDto categoryDto) {
+    public CategoryResponseDto save(CategoryDto categoryDto) {
         return categoryMapper
-                .toDto(
+                .toResponseDto(
                         categoryRepository
                                 .save(categoryMapper.toEntity(categoryDto))
                 );
     }
 
     @Override
-    public CategoryDto update(Long id, CategoryDto categoryDto) {
+    public CategoryResponseDto update(Long id, CategoryDto categoryDto) {
         Optional<Category> optionalCategory = categoryRepository.findById(id);
         if (optionalCategory.isPresent()) {
             Category existingCategory = optionalCategory.get();
@@ -44,7 +46,7 @@ public class CategoriesServiceImpl implements CategoryService {
             existingCategory.setDescription(categoryDto.getDescription());
 
             Category savedCategory = categoryRepository.save(existingCategory);
-            return categoryMapper.toDto(savedCategory);
+            return categoryMapper.toResponseDto(savedCategory);
         } else {
             throw new RuntimeException("Category not found with id " + id);
         }
