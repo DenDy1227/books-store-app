@@ -1,7 +1,7 @@
 package com.book.booksstore.controller;
 
 import com.book.booksstore.dto.BookDto;
-import com.book.booksstore.dto.CategoryDto;
+import com.book.booksstore.dto.CategoryRequestDto;
 import com.book.booksstore.dto.CategoryResponseDto;
 import com.book.booksstore.service.BookService;
 import com.book.booksstore.service.CategoryService;
@@ -33,7 +33,7 @@ public class CategoryController {
     private final BookService bookService;
 
     @GetMapping
-    public Page<CategoryDto> findAll(Pageable pageable) {
+    public Page<CategoryResponseDto> findAll(Pageable pageable) {
         return categoryService.findAll(pageable);
     }
 
@@ -51,21 +51,21 @@ public class CategoryController {
             description = "Adding new category.")
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public CategoryResponseDto createCategory(
+    public CategoryRequestDto createCategory(
             @RequestBody
             @Valid
-            CategoryDto categoryDto) {
-        return categoryService.save(categoryDto);
+            CategoryResponseDto categoryResponseDto) {
+        return categoryService.save(categoryResponseDto);
     }
 
     @PutMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public CategoryResponseDto updateCategory(
+    public CategoryRequestDto updateCategory(
             @RequestParam Long categoryId,
             @RequestBody
             @Valid
-            CategoryDto categoryDto) {
-        return categoryService.update(categoryId, categoryDto);
+            CategoryResponseDto categoryResponseDto) {
+        return categoryService.update(categoryId, categoryResponseDto);
     }
 
     @DeleteMapping

@@ -1,6 +1,6 @@
 package com.book.booksstore.service;
 
-import com.book.booksstore.dto.CategoryDto;
+import com.book.booksstore.dto.CategoryRequestDto;
 import com.book.booksstore.dto.CategoryResponseDto;
 import com.book.booksstore.exception.EntityNotFoundException;
 import com.book.booksstore.mappers.CategoryMapper;
@@ -18,38 +18,33 @@ public class CategoriesServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public Page<CategoryDto> findAll(Pageable pageable) {
+    public Page<CategoryResponseDto> findAll(Pageable pageable) {
         return categoryRepository.findAll(pageable).map(categoryMapper::toDto);
     }
 
     @Override
-    public CategoryResponseDto getById(Long id) {
+    public CategoryRequestDto getById(Long id) {
         return categoryMapper.toResponseDto(
                 categoryRepository.getReferenceById(id));
     }
 
     @Override
-    public CategoryResponseDto save(CategoryDto categoryDto) {
-        return categoryMapper
-                .toResponseDto(
-                        categoryRepository
-                                .save(categoryMapper.toEntity(categoryDto))
-                );
+    public CategoryRequestDto save(CategoryResponseDto categoryResponseDto) {
+        return categoryMapper.toResponseDto(categoryRepository
+                .save(categoryMapper
+                        .toEntity(categoryResponseDto))
+        );
     }
 
     @Override
-    public CategoryResponseDto update(Long id, CategoryDto categoryDto) {
-        return categoryRepository.findById(id)
-                .map(existingCategory -> {
-                    categoryMapper
-                            .updateCategoryFromDto(
-                                    categoryDto,
-                                    existingCategory);
-                    Category saved = categoryRepository.save(existingCategory);
-                    return categoryMapper.toResponseDto(saved);
-                }).orElseThrow(
-                        () -> new EntityNotFoundException(
-                                "Category not found with id " + id));
+    public CategoryRequestDto update(
+            Long id,
+            CategoryResponseDto categoryResponseDto) {
+        Category existing = categoryRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(
+                        "Category not found with id " + id));
+        Category saved = categoryRepository.save(existing);
+        return categoryMapper.toResponseDto(saved);
     }
 
     @Override
