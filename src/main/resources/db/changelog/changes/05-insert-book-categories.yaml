@@ -4,7 +4,7 @@ databaseChangeLog:
       author: denDy
       changes:
         - insert:
-            tableName: category
+            tableName: categories
             columns:
               - column:
                   name: name
@@ -16,7 +16,7 @@ databaseChangeLog:
                   name: is_deleted
                   valueBoolean: false
         - insert:
-            tableName: category
+            tableName: categories
             columns:
               - column:
                   name: name
@@ -29,7 +29,7 @@ databaseChangeLog:
                   valueBoolean: false
 
         - insert:
-            tableName: category
+            tableName: categories
             columns:
               - column:
                   name: name
@@ -42,7 +42,7 @@ databaseChangeLog:
                   valueBoolean: false
 
         - insert:
-            tableName: category
+            tableName: categories
             columns:
               - column:
                   name: name
@@ -55,7 +55,7 @@ databaseChangeLog:
                   valueBoolean: false
 
         - insert:
-            tableName: category
+            tableName: categories
             columns:
               - column:
                   name: name

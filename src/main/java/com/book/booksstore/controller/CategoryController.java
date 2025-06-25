@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
         description = "Endpoints for managing book categories.")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
     private final BookService bookService;
@@ -55,7 +55,7 @@ public class CategoryController {
             @RequestBody
             @Valid
             CategoryResponseDto categoryResponseDto) {
-        return categoryService.save(categoryResponseDto);
+        return categoryService.saveCategory(categoryResponseDto);
     }
 
     @PutMapping
@@ -65,12 +65,12 @@ public class CategoryController {
             @RequestBody
             @Valid
             CategoryResponseDto categoryResponseDto) {
-        return categoryService.update(categoryId, categoryResponseDto);
+        return categoryService.updateCategory(categoryId, categoryResponseDto);
     }
 
     @DeleteMapping
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteCategoryById(@PathVariable Long categoryId) {
-        categoryService.deleteById(categoryId);
+        categoryService.deleteCategoryById(categoryId);
     }
 }
