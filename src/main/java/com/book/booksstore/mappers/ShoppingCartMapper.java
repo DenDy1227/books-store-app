@@ -1,6 +1,7 @@
 package com.book.booksstore.mappers;
 
 import com.book.booksstore.config.MapperConfig;
+import com.book.booksstore.dto.CartItemDto;
 import com.book.booksstore.model.CartItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
