@@ -15,4 +15,6 @@ public interface BookService {
     BookDto update(Long id, BookDto updatedBook);
 
     boolean deleteBook(Long id);
+
+    Page<BookDto> findByCategory(Long categoryId, Pageable pageable);
 }

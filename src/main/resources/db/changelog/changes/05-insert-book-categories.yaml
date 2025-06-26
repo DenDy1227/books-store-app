@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: denDy
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Fiction"
+              - column:
+                  name: description
+                  value: "Novels and stories created from the imagination"
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Non-Fiction"
+              - column:
+                  name: description
+                  value: "Informative works based on real events or facts"
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Science"
+              - column:
+                  name: description
+                  value: "Books covering scientific topics and research"
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "History"
+              - column:
+                  name: description
+                  value: "Works that explore historical events and figures"
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Children’s"
+              - column:
+                  name: description
+                  value: "Stories and educational books for young readers"
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
