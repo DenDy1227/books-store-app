@@ -17,7 +17,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 
-
 @Entity
 @Table(name = "shopping_carts")
 @SQLDelete(sql = "UPDATE shopping_carts SET is_deleted = true WHERE id=?")
@@ -27,10 +26,9 @@ public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(optional = false)
+    
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @Column(nullable = false)
     private User user;
 
     @OneToMany(

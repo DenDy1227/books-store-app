@@ -1,11 +1,16 @@
 package com.book.booksstore.dto;
 
-import com.book.booksstore.model.Book;
-import com.book.booksstore.model.ShoppingCart;
+import java.math.BigDecimal;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class CartItemDto {
-
-    private ShoppingCart shoppingCart;
-    private Book book;
+    private Long id;
+    private Long bookId;
+    private String bookTitle;
     private int quantity;
+    private BigDecimal unitPrice;
+    private BigDecimal totalPrice;
 }

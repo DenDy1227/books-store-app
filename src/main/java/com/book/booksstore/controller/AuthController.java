@@ -7,6 +7,7 @@ import com.book.booksstore.dto.UserLoginResponseDto;
 import com.book.booksstore.exception.RegistrationException;
 import com.book.booksstore.security.AuthenticationService;
 import com.book.booksstore.service.AuthService;
+import com.book.booksstore.service.ShoppingCartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final AuthService authService;
     private final AuthenticationService authenticationService;
+    private final ShoppingCartService shoppingCartService;
 
     @Operation(summary = "User registration.", description = "Adding new user.")
     @PostMapping("/registration")
@@ -34,6 +36,7 @@ public class AuthController {
             CreateUserRequestDto request)
             throws RegistrationException {
         UserDto user = authService.register(request);
+        shoppingCartService.createShoppingCart(user.getId());
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 

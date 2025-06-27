@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final ShoppingCartService shoppingCartService;
 
     @Override
     public UserDto register(CreateUserRequestDto request) {
@@ -24,6 +25,7 @@ public class AuthServiceImpl implements AuthService {
         }
         User user = userMapper.toUserModel(request);
         userRepository.save(user);
+        shoppingCartService.createShoppingCart(user.getId());
         return userMapper.toUserDto(user);
     }
 }
