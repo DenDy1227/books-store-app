@@ -4,6 +4,7 @@ import com.book.booksstore.dto.AddCartItemRequest;
 import com.book.booksstore.dto.ShoppingCartResponseDto;
 import com.book.booksstore.dto.UpdateCartItemRequest;
 import com.book.booksstore.service.ShoppingCartService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,17 +26,26 @@ public class ShoppingCartController {
 
     private final ShoppingCartService shoppingCartService;
 
+    @Operation(
+            summary = "Get shopping cart.",
+            description = "Return current authenticated user shopping cart.")
     @GetMapping
     public ShoppingCartResponseDto getShoppingCart(Long cartItemId) {
         return shoppingCartService.getShoppingCart(cartItemId);
     }
 
+    @Operation(
+            summary = "Add book.",
+            description = "Add book to shopping cart.")
     @PostMapping
     public ShoppingCartResponseDto addItem(
             @RequestBody AddCartItemRequest req) {
         return shoppingCartService.addBook(req.getBookId(), req.getQuantity());
     }
 
+    @Operation(
+            summary = "Update shopping cart.",
+            description = "Change quantity of specific book in the cart.")
     @PutMapping("cart/items/{cartItemId}")
     public ShoppingCartResponseDto updateShoppingCart(
             @PathVariable Long cartItemId,
@@ -44,6 +54,9 @@ public class ShoppingCartController {
                 .updateItemQuantity(cartItemId, req.getQuantity());
     }
 
+    @Operation(
+            summary = "Delete book from cart.",
+            description = "Violent deleting book from shopping cart...")
     @DeleteMapping("cart/items/{cartItemId}")
     public ShoppingCartResponseDto deleteShoppingCart(
             @PathVariable Long cartItemId) {
