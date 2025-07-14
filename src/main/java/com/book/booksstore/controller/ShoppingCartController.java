@@ -6,6 +6,7 @@ import com.book.booksstore.dto.UpdateCartItemRequest;
 import com.book.booksstore.service.ShoppingCartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +40,7 @@ public class ShoppingCartController {
             description = "Add book to shopping cart.")
     @PostMapping
     public ShoppingCartResponseDto addItem(
-            @RequestBody AddCartItemRequest req) {
+            @RequestBody @Valid AddCartItemRequest req) {
         return shoppingCartService.addBook(req.getBookId(), req.getQuantity());
     }
 
@@ -49,14 +50,14 @@ public class ShoppingCartController {
     @PutMapping("cart/items/{cartItemId}")
     public ShoppingCartResponseDto updateShoppingCart(
             @PathVariable Long cartItemId,
-            @RequestBody UpdateCartItemRequest req) {
+            @RequestBody @Valid UpdateCartItemRequest req) {
         return shoppingCartService
                 .updateItemQuantity(cartItemId, req.getQuantity());
     }
 
     @Operation(
             summary = "Delete book from cart.",
-            description = "Violent deleting book from shopping cart...")
+            description = "Violent deleting book from shopping cart.")
     @DeleteMapping("cart/items/{cartItemId}")
     public ShoppingCartResponseDto deleteShoppingCart(
             @PathVariable Long cartItemId) {

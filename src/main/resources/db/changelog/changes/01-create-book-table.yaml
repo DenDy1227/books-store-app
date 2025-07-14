@@ -1,11 +1,22 @@
 databaseChangeLog:
   - changeSet:
-      id: 1-create-books-table
+      id: 01-create-books-table
       author: denDy
       changes:
         - createTable:
             tableName: books
+            tableOptions: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
             columns:
+              - column:
+                  name: is_deleted
+                  type: BIT(1)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: DECIMAL(38,2)
+                  constraints:
+                    nullable: false
               - column:
                   name: id
                   type: BIGINT
@@ -14,35 +25,27 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: title
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: false
-              - column:
                   name: author
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
               - column:
+                  name: cover_image
+                  type: VARCHAR(255)
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
                   name: isbn
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
-                    unique: true
               - column:
-                  name: price
-                  type: DECIMAL(19,2)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: description
-                  type: VARCHAR(1024)
-              - column:
-                  name: cover_image
+                  name: title
                   type: VARCHAR(255)
-              - column:
-                  name: is_deleted
-                  type: boolean
-                  defaultValueBoolean: false
                   constraints:
                     nullable: false
+        - addUniqueConstraint:
+            tableName: books
+            columnNames: isbn
+            constraintName: UKkibbepcitr0a3cpk3rfr7nihn

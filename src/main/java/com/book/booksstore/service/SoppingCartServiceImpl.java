@@ -11,16 +11,16 @@ import com.book.booksstore.repository.BookRepository;
 import com.book.booksstore.repository.CartItemRepository;
 import com.book.booksstore.repository.ShoppingCartRepository;
 import com.book.booksstore.repository.UserRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class SoppingCartServiceImpl implements ShoppingCartService {
     private final ShoppingCartRepository shoppingCartRepository;
     private final ShoppingCartMapper shoppingCartMapper;
@@ -30,7 +30,6 @@ public class SoppingCartServiceImpl implements ShoppingCartService {
     private final BookRepository bookRepository;
 
     @Override
-    @Transactional(readOnly = true)
     public ShoppingCartResponseDto getShoppingCart(Long cartId) {
         ShoppingCart cart = shoppingCartRepository.findById(cartId)
                 .orElseThrow(() -> new EntityNotFoundException(
@@ -39,31 +38,26 @@ public class SoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    @Transactional
     public ShoppingCartResponseDto addBook(Long bookId, int quantity) {
         User user = resolveCurrentUser();
         ShoppingCart cart = shoppingCartRepository
-                .findFirstByUserAndIsDeletedFalse(user);
-        if (cart == null) {
-            cart = new ShoppingCart();
-            cart.setUser(user);
-            cart = shoppingCartRepository.save(cart);
-        }
-
-        CartItem item = cart.getCartItems().stream()
-                .filter(cartItemRepository -> cartItemRepository
-                        .getBook()
-                        .getId()
-                        .equals(bookId))
-                .findFirst()
+                .findFirstByUserAndIsDeletedFalse(user)
                 .orElseGet(() -> {
-                    CartItem cartItem = new CartItem();
+                    ShoppingCart newCart = new ShoppingCart();
+                    newCart.setUser(user);
+                    return shoppingCartRepository.save(newCart);
+                });
+
+        CartItem item = itemRepository
+                .findByShoppingCartAndBookId(cart, bookId)
+                .orElseGet(() -> {
+                    CartItem ci = new CartItem();
+                    ci.setShoppingCart(cart);
                     Book book = bookRepository.findById(bookId)
                             .orElseThrow(() -> new EntityNotFoundException(
                                     "Book not found: " + bookId));
-                    cartItem.setBook(book);
-
-                    return cartItem;
+                    ci.setBook(book);
+                    return ci;
                 });
 
         item.setQuantity(item.getQuantity() + quantity);
@@ -73,7 +67,6 @@ public class SoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    @Transactional
     public ShoppingCartResponseDto updateItemQuantity(
             Long cartItemId,
             int quantity) {
@@ -97,10 +90,10 @@ public class SoppingCartServiceImpl implements ShoppingCartService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "User not found: " + userId));
-        ShoppingCart existing = shoppingCartRepository
+        Optional<ShoppingCart> existing = shoppingCartRepository
                 .findFirstByUserAndIsDeletedFalse(user);
-        if (existing != null) {
-            shoppingCartMapper.toDto(existing);
+        if (existing != null && existing.isPresent()) {
+            shoppingCartMapper.toDto(existing.get());
             return;
         }
         ShoppingCart cart = new ShoppingCart();
@@ -111,18 +104,19 @@ public class SoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    @Transactional
     public ShoppingCartResponseDto deleteItemFromShoppingCart(Long cartItemId) {
         User user = resolveCurrentUser();
+
         ShoppingCart cart = shoppingCartRepository
-                .findFirstByUserAndIsDeletedFalse(user);
+                .findFirstByUserAndIsDeletedFalse(user)
+                .orElse(null);
+
         if (cart == null) {
             return shoppingCartMapper.toDto(new ShoppingCart());
         }
 
-        boolean removed = cart.getCartItems().removeIf(cartItem ->
-                cartItem.getId().equals(cartItemId)
-        );
+        boolean removed = cart.getCartItems()
+                .removeIf(ci -> ci.getId().equals(cartItemId));
 
         if (removed) {
             shoppingCartRepository.save(cart);
@@ -132,15 +126,13 @@ public class SoppingCartServiceImpl implements ShoppingCartService {
     }
 
     private User resolveCurrentUser() {
-        String username = SecurityContextHolder
+        Object p = SecurityContextHolder
                 .getContext()
                 .getAuthentication()
-                .getName();
-
-        UserDetails userDetails = userDetailsService
-                .loadUserByUsername(username);
-        return userRepository.findByEmail(userDetails.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException(
-                        "User not found: " + userDetails.getUsername()));
+                .getPrincipal();
+        if (p instanceof User) {
+            return (User) p;
+        }
+        throw new IllegalStateException("Not allowed User");
     }
 }

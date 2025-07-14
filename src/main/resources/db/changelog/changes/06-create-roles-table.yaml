@@ -1,10 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: 2-create-roles-table
+      id: 06-create-roles-table
       author: denDy
       changes:
         - createTable:
             tableName: roles
+            tableOptions: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
             columns:
               - column:
                   name: id
@@ -15,7 +16,11 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: name
-                  type: VARCHAR(50)
+                  type: ENUM('ADMIN','USER')
                   constraints:
                     nullable: false
-                    unique: true
+
+        - addUniqueConstraint:
+            tableName: roles
+            columnNames: name
+            constraintName: UKofx66keruapi6vyqpv6f2or37

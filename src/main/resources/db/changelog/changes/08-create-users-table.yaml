@@ -1,11 +1,18 @@
 databaseChangeLog:
   - changeSet:
-      id: 1-create-users-table
+      id: 08-create-users-table
       author: denDy
       changes:
         - createTable:
             tableName: users
+            tableOptions: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
             columns:
+              - column:
+                  name: is_deleted
+                  type: TINYINT(1)
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
               - column:
                   name: id
                   type: BIGINT
@@ -15,12 +22,6 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: email
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: false
-                    unique: true
-              - column:
-                  name: password
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
@@ -35,11 +36,14 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: shipping_address
+                  name: password
                   type: VARCHAR(255)
-              - column:
-                  name: is_deleted
-                  type: boolean
-                  defaultValueBoolean: false
                   constraints:
                     nullable: false
+              - column:
+                  name: shipping_address
+                  type: VARCHAR(255)
+        - addUniqueConstraint:
+            tableName: users
+            columnNames: email
+            constraintName: UK6dotkott2kjsp8vw4d0m25fb7
