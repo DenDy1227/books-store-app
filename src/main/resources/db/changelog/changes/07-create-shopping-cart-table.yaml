@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 07-create-shopping-carts-table
+      author: denDy
+      changes:
+        - createTable:
+            tableName: shopping_carts
+            tableOptions: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
+            columns:
+              - column:
+                  name: is_deleted
+                  type: BIT(1)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - createIndex:
+            tableName: shopping_carts
+            indexName: idx_shopping_carts_user_id
+            columns:
+              - column:
+                  name: user_id
+
+        - addForeignKeyConstraint:
+            baseTableName: shopping_carts
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: FK3iw2988ea60alsp0gnvvyt744

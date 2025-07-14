@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: 09-create-users-roles-table
+      author: denDy
+      changes:
+        - createTable:
+            tableName: users_roles
+            tableOptions: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
+            columns:
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - addPrimaryKey:
+            tableName: users_roles
+            columnNames: role_id,user_id
+            constraintName: pk_users_roles
+
+        - createIndex:
+            tableName: users_roles
+            indexName: idx_users_roles_user_id
+            columns:
+              - column:
+                  name: user_id
+
+        - addForeignKeyConstraint:
+            baseTableName: users_roles
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: FK2o0jvgh89lemvvo17cbqvdxaa
+
+        - addForeignKeyConstraint:
+            baseTableName: users_roles
+            baseColumnNames: role_id
+            referencedTableName: roles
+            referencedColumnNames: id
+            constraintName: FKj6m8fwv7oqv74fcehir1a9ffy

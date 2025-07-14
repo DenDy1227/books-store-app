@@ -1,11 +1,18 @@
 databaseChangeLog:
   - changeSet:
-      id: 2-create-categories-table
+      id: 04-create-categories-table
       author: denDy
       changes:
         - createTable:
             tableName: categories
+            tableOptions: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
             columns:
+              - column:
+                  name: is_deleted
+                  type: TINYINT(1)
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
               - column:
                   name: id
                   type: BIGINT
@@ -14,14 +21,10 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
                   name: name
-                  type: VARCHAR(50)
+                  type: VARCHAR(255)
                   constraints:
                     nullable: false
-                    unique: true
-              - column:
-                  name: description
-                  type: VARCHAR(50)
-                  constraints:
-                    nullable: true
-                    unique: false

@@ -8,14 +8,17 @@ import com.book.booksstore.model.User;
 import com.book.booksstore.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final ShoppingCartService shoppingCartService;
 
     @Override
+    @Transactional
     public UserDto register(CreateUserRequestDto request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new RegistrationException(
@@ -24,6 +27,7 @@ public class AuthServiceImpl implements AuthService {
         }
         User user = userMapper.toUserModel(request);
         userRepository.save(user);
+        shoppingCartService.createShoppingCart(user.getId());
         return userMapper.toUserDto(user);
     }
 }
