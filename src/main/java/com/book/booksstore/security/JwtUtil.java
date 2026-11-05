@@ -5,9 +5,11 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cglib.core.internal.Function;
 import org.springframework.stereotype.Service;
@@ -41,7 +43,7 @@ public class JwtUtil {
         try {
             Jws<Claims> claims = Jwts.parserBuilder()
                     .setSigningKey(secret).build().parseClaimsJws(token);
-            return claims.getBody().getExpiration().before(new Date());
+            return claims.getBody().getExpiration().after(new Date());
         } catch (JwtException | IllegalArgumentException e) {
             throw new JwtException("Invalid JWT token");
         }
@@ -55,7 +57,7 @@ public class JwtUtil {
                 .setSigningKey(secret)
                 .build()
                 .parseClaimsJws(token);
-        return claimsResolver.apply((Claims) claims);
+        return claimsResolver.apply(claims.getBody());
 
     }
 

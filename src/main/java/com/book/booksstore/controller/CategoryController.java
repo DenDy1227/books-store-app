@@ -50,7 +50,7 @@ public class CategoryController {
             summary = "Category creation.",
             description = "Adding new category.")
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CategoryRequestDto createCategory(
             @RequestBody
             @Valid
@@ -59,7 +59,7 @@ public class CategoryController {
     }
 
     @PutMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CategoryRequestDto updateCategory(
             @RequestParam Long categoryId,
             @RequestBody
@@ -69,7 +69,7 @@ public class CategoryController {
     }
 
     @DeleteMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteCategoryById(@PathVariable Long categoryId) {
         categoryService.deleteCategoryById(categoryId);
     }

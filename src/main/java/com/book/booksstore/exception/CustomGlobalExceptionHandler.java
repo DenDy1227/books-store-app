@@ -2,6 +2,7 @@ package com.book.booksstore.exception;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -26,7 +27,7 @@ public class CustomGlobalExceptionHandler
     ) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
+            String fieldName = error.getDefaultMessage();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });

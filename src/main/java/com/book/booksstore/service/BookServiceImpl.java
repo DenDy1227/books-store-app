@@ -6,7 +6,9 @@ import com.book.booksstore.exception.EntityNotFoundException;
 import com.book.booksstore.mappers.BookMapper;
 import com.book.booksstore.model.Book;
 import com.book.booksstore.repository.BookRepository;
+
 import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,20 +45,15 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto update(Long id, BookDto updatedBook) {
-        Optional<Book> optionalBook = bookRepository.findById(id);
-        if (optionalBook.isPresent()) {
-            Book existingBook = optionalBook.get();
-            existingBook.setTitle(updatedBook.getTitle());
-            existingBook.setAuthor(updatedBook.getAuthor());
-            existingBook.setPrice(updatedBook.getPrice());
-            existingBook.setIsbn(updatedBook.getIsbn());
-            existingBook.setDescription(updatedBook.getDescription());
-            existingBook.setCoverImage(updatedBook.getCoverImage());
-            Book savedBook = bookRepository.save(existingBook);
-            return bookMapper.toBookDto(savedBook);
-        } else {
-            throw new RuntimeException("Book not found with id " + id);
-        }
+        Book existingBook = bookRepository.findById(id).orElseThrow();
+        existingBook.setTitle(updatedBook.getTitle());
+        existingBook.setAuthor(updatedBook.getAuthor());
+        existingBook.setPrice(updatedBook.getPrice());
+        existingBook.setIsbn(updatedBook.getIsbn());
+        existingBook.setDescription(updatedBook.getDescription());
+        existingBook.setCoverImage(updatedBook.getCoverImage());
+        Book savedBook = bookRepository.save(existingBook);
+        return bookMapper.toBookDto(savedBook);
     }
 
     @Override
